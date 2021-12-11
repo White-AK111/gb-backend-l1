@@ -1,13 +1,13 @@
 run:
-concurrency: 2
+  concurrency: 2
 
-timeout: 1m
+  timeout: 1m
 
-issues-exit-code: 1
+  issues-exit-code: 1
 
-tests: true
+  tests: true
 
-skip-dirs-use-default: true
+  skip-dirs-use-default: true
 
 linters:
   disable-all: true
