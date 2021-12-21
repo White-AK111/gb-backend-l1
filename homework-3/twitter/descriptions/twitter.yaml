@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  description : "API Twitter Lite"
+  description : API Twitter Lite
   title: Twitter
   version: 1.0.0
   contact:
@@ -13,9 +13,9 @@ paths:
       description: This endpoint returns information about users. Specify users by their ID.
       operationId: findUsersById
       parameters:
-        - name: "ids"
-          in: "query"
-          description: "Required. A list of User IDs, comma-separated. You can specify up to 100 IDs."
+        - name: ids
+          in: query
+          description: Required. A list of User IDs, comma-separated. You can specify up to 100 IDs.
           required: true
           schema:
             type: array
