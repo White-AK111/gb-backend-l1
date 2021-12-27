@@ -343,8 +343,8 @@ components:
         id:
           type: integer
           format: int64
-        itemId:
-          type: integer
+        items:
+          type: array
           format: int64
         quantity:
           type: integer

@@ -49,7 +49,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleUserLookupResponse'
-  /labs/2/tweets:
+  /tweets:
     get:
       summary: Returns hydrated Tweet objects
       description: Returns a variety of information about the Tweet specified by the requested ID
@@ -72,7 +72,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TweetLookupResponse'
-  /labs/2/tweets/id:
+  /tweets/id:
     get:
       summary: Returns hydrated Tweet objects
       description: Returns a variety of information about the Tweet specified by the requested ID
