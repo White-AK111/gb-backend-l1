@@ -18,6 +18,7 @@ import (
 
 const apiPort = 8000
 const filePort = 8080
+const uploadDir = "/home/white/GolandProjects/gb-backend-l1/homework-4/upload"
 
 type Handler struct {
 }
@@ -147,12 +148,12 @@ func startApiServer() {
 
 	uploadHandler := &UploadHandler{
 		HostAddr:  "http://localhost:" + strconv.Itoa(filePort) + "/",
-		UploadDir: "../../upload",
+		UploadDir: uploadDir,
 	}
 	http.Handle("/upload", uploadHandler)
 
 	listHandler := &ListHandler{
-		UploadDir: "../../upload",
+		UploadDir: uploadDir,
 	}
 	http.Handle("/list", listHandler)
 

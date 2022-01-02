@@ -37,7 +37,7 @@ func TestGetHandler(t *testing.T) {
 }
 
 func TestUploadHandler(t *testing.T) {
-	file, _ := os.Open("../../upload/testfile.txt")
+	file, _ := os.Open(uploadDir + "/testfile.txt")
 	defer file.Close()
 
 	var mime bytes.Buffer
@@ -64,8 +64,13 @@ func TestUploadHandler(t *testing.T) {
 	defer ts.Close()
 
 	uploadHandler := &UploadHandler{
-		UploadDir: "../../upload",
+		UploadDir: uploadDir,
 		HostAddr:  ts.URL,
+	}
+
+	newName, ok := uploadHandler.GetUniqFilePath(uploadDir + "/" + "testfile.txt")
+	if !ok {
+		t.Errorf("error on get new file name")
 	}
 
 	uploadHandler.ServeHTTP(rr, req)
@@ -75,10 +80,18 @@ func TestUploadHandler(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `testfile`
+	expected := "File " + filepath.Base(newName) + " has been successfully uploaded"
 	if !strings.Contains(rr.Body.String(), expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
+	}
+
+	if _, err := os.Stat(newName); err == nil {
+		return
+	} else if os.IsNotExist(err) {
+		t.Errorf("uploaded file " + filepath.Base(newName) + " not found in directory " + uploadDir)
+	} else {
+		t.Errorf("error on find  file " + filepath.Base(newName) + " in directory " + uploadDir)
 	}
 }
 
@@ -90,7 +103,7 @@ func TestListHandler(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 	handler := &ListHandler{
-		UploadDir: "../../upload",
+		UploadDir: uploadDir,
 	}
 
 	handler.ServeHTTP(rr, req)
@@ -100,7 +113,7 @@ func TestListHandler(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := `.jpg`
+	expected := "Name:jpgFile	Ext:.jpg	Size:0"
 
 	if !strings.Contains(rr.Body.String(), expected) {
 		t.Errorf("handler returned unexpected body: got %v want %v",
