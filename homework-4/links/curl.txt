@@ -1,0 +1,15 @@
+curl http://localhost:8000 -X POST -d '{"name":"Mikhail","age":33,"salary":100500}' -H "Content-Type: application/json"
+
+curl http://localhost:8000 -X POST -d '<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <age>33</age>
+  <name>Mikhail</name>
+  <salary>100500</salary>
+</root>' -H "Content-Type: application/xml"
+
+curl -F 'file=@testfile.txt' http://localhost:8000/upload
+
+curl http://localhost:8000/list
+
+curl http://localhost:8000/list?ext=.jpg
+curl http://localhost:8000/list?ext=.txt
